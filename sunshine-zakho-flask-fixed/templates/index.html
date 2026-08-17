@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="ku" dir="rtl" class="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>کۆمپانیای پاتیمات | سکۆلارشیپ، خوێندنی دەرەوە و ڤیزای پزیشکی</title>
+  <meta name="description" content="کۆمپانیای پاتیمات — دەروازەیەکە بۆ بەدەستهێنانی سکۆلارشیپی خوێندن لە باشترین زانکۆکانی جیهان و دابینکردنی ڤیزای پزیشکی و گەشتیاری.">
+  <meta name="theme-color" content="#1c1917">
+  <link rel="icon" href="{{ url_for('static', filename='images/icon.svg') }}" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+  <!-- ============================== HEADER ============================== -->
+  <header id="site-header" class="site-header scrolled">
+    <div class="header-inner container">
+      <a href="#hero" class="logo">
+        <span class="logo-badge">{{ icon('sun', 'icon icon-spin') }}</span>
+        <span class="logo-text">
+          <span class="logo-title" data-i18n="brand.title">کۆمپانیای پاتیمات</span>
+          <span class="logo-sub" data-i18n="brand.sub">patimat-company.com</span>
+        </span>
+      </a>
+
+      <nav class="nav-desktop">
+        {% for item in nav %}
+          {% if item.children %}
+            <div class="nav-dropdown">
+              <button type="button" class="nav-link nav-dropdown-btn">
+                <span data-i18n="{{ item.key }}">{{ item.label }}</span>
+                {{ icon('chevron-down', 'icon icon-sm chevron') }}
+              </button>
+              <div class="nav-dropdown-menu">
+                {% for child in item.children %}
+                  <a href="{{ child.href }}" class="nav-dropdown-item">
+                    <span class="nav-dropdown-item-label" data-i18n="{{ child.key }}">{{ child.label }}</span>
+                    <span class="nav-dropdown-item-hint">{{ child.hint }}</span>
+                  </a>
+                {% endfor %}
+              </div>
+            </div>
+          {% else %}
+            <a href="{{ item.href }}" class="nav-link" data-i18n="{{ item.key }}">{{ item.label }}</a>
+          {% endif %}
+        {% endfor %}
+      </nav>
+
+      <div class="header-actions">
+        <div class="lang-switcher" id="lang-switcher">
+          <button type="button" class="lang-trigger" id="lang-trigger" aria-haspopup="listbox" aria-expanded="false">
+            <span class="lang-flag" data-flag-current>
+              <svg viewBox="0 0 24 16" class="flag-svg"><rect width="24" height="5.33" y="0" fill="#e30a17"/><rect width="24" height="5.33" y="5.33" fill="#fff"/><rect width="24" height="5.33" y="10.67" fill="#007a3d"/><circle cx="12" cy="8" r="2.6" fill="none" stroke="#e4a91a" stroke-width="0.5"/><g stroke="#e4a91a" stroke-width="0.35"><line x1="12" y1="4.4" x2="12" y2="11.6"/><line x1="8.6" y1="8" x2="15.4" y2="8"/><line x1="9.3" y1="5.3" x2="14.7" y2="10.7"/><line x1="14.7" y1="5.3" x2="9.3" y2="10.7"/></g></svg>
+            </span>
+            <span class="lang-code" data-code-current>CKB</span>
+            {{ icon('chevron-down', 'icon icon-sm') }}
+          </button>
+          <div class="lang-menu" id="lang-menu" role="listbox">
+            <button type="button" class="lang-option active" data-lang="ku" role="option">
+              <span class="lang-flag">
+                <svg viewBox="0 0 24 16" class="flag-svg"><rect width="24" height="5.33" y="0" fill="#e30a17"/><rect width="24" height="5.33" y="5.33" fill="#fff"/><rect width="24" height="5.33" y="10.67" fill="#007a3d"/><circle cx="12" cy="8" r="2.6" fill="none" stroke="#e4a91a" stroke-width="0.5"/><g stroke="#e4a91a" stroke-width="0.35"><line x1="12" y1="4.4" x2="12" y2="11.6"/><line x1="8.6" y1="8" x2="15.4" y2="8"/><line x1="9.3" y1="5.3" x2="14.7" y2="10.7"/><line x1="14.7" y1="5.3" x2="9.3" y2="10.7"/></g></svg>
+              </span>
+              <span>کوردی (سۆرانی)</span>
+            </button>
+            <button type="button" class="lang-option" data-lang="en" role="option">
+              <span class="lang-flag">
+                <svg viewBox="0 0 24 16" class="flag-svg"><rect width="24" height="16" fill="#b22234"/><g fill="#fff"><rect y="1.23" width="24" height="1.23"/><rect y="3.69" width="24" height="1.23"/><rect y="6.15" width="24" height="1.23"/><rect y="8.61" width="24" height="1.23"/><rect y="11.08" width="24" height="1.23"/><rect y="13.54" width="24" height="1.23"/></g><rect width="10" height="8.6" fill="#3c3b6e"/></svg>
+              </span>
+              <span>English</span>
+            </button>
+            <button type="button" class="lang-option" data-lang="ar" role="option">
+              <span class="lang-flag">
+                <svg viewBox="0 0 24 16" class="flag-svg"><rect width="24" height="5.33" y="0" fill="#ce1126"/><rect width="24" height="5.33" y="5.33" fill="#fff"/><rect width="24" height="5.33" y="10.67" fill="#000"/><g fill="#007a3d"><rect x="10.3" y="6" width="0.9" height="4"/><rect x="11.55" y="6" width="0.9" height="4"/><rect x="12.8" y="6" width="0.9" height="4"/></g></svg>
+              </span>
+              <span>العربية</span>
+            </button>
+          </div>
+        </div>
+
+        <a href="#contact" class="btn btn-accent header-login">
+          {{ icon('phone', 'icon icon-sm') }}
+          <span data-i18n="header.login">ئێستا پەیوەندی بکە</span>
+        </a>
+        <button type="button" id="mobile-toggle" class="icon-btn nav-mobile-toggle" aria-label="پێڕست">
+          {{ icon('menu', 'icon') }}
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= Sliding overlay sidebar ================= -->
+  <div id="sidebar-scrim" class="sidebar-scrim"></div>
+  <aside id="app-sidebar" class="app-sidebar" aria-hidden="true">
+    <div class="sidebar-top">
+      <span class="logo-badge sidebar-logo-badge">{{ icon('sun', 'icon icon-spin') }}</span>
+      <button type="button" id="sidebar-close" class="icon-btn sidebar-close" aria-label="close">
+        {{ icon('x', 'icon') }}
+      </button>
+    </div>
+
+    <div class="sidebar-welcome">
+      <span class="eyebrow sidebar-eyebrow" data-i18n="sidebar.eyebrow">کۆمپانیای پاتیمات</span>
+      <h2 class="sidebar-welcome-title" data-i18n="sidebar.welcome.title">بەخێربێن</h2>
+      <p class="sidebar-welcome-text" data-i18n="sidebar.welcome.text">
+        دەروازەیەک بۆ بەدەستهێنانی سکۆلارشیپی خوێندن و ڤیزای پزیشکی و گەشتیاری بە خزمەتگوزاریی VIP.
+      </p>
+    </div>
+
+    <nav class="sidebar-links">
+      {% for link in sidebar_links %}
+        <a href="{{ link.href }}" class="sidebar-link">
+          <span class="sidebar-link-icon">{{ icon(link.icon, 'icon') }}</span>
+          <span data-i18n="{{ link.key }}">{{ link.label }}</span>
+        </a>
+      {% endfor %}
+    </nav>
+
+    <div class="sidebar-bottom">
+      <div class="social-list sidebar-socials">
+        {% for social in socials %}
+          <a href="{{ social.href }}" target="_blank" rel="noopener" aria-label="{{ social.label }}" class="social-btn social-btn-dark">
+            {% if social.kind == 'image' %}
+              <img src="{{ url_for('static', filename='images/' + social.icon) }}" alt="">
+            {% else %}
+              {{ icon(social.icon, 'icon icon-sm') }}
+            {% endif %}
+          </a>
+        {% endfor %}
+      </div>
+    </div>
+  </aside>
+
+  <main>
+    <!-- ============================== HERO ============================== -->
+    <section id="hero" class="hero">
+      <div class="hero-bg">
+        <img src="{{ url_for('static', filename='images/russia1.jpg') }}" alt="کۆمپانیای پاتیمات">
+        <div class="hero-bg-fade-x"></div>
+        <div class="hero-bg-fade-y"></div>
+      </div>
+
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <span class="pill">
+            {{ icon('sparkles', 'icon icon-sm accent') }}
+            <span data-i18n="hero.pill">پاتیمات — پێشەنگ لە سکۆلارشیپ و ڤیزای پزیشکی</span>
+          </span>
+
+          <h1 class="hero-title">
+            <span data-i18n="hero.title.pre">داهاتووت لەگەڵ پاتیمات مسۆگەر بکە؛</span>
+            <span class="rotate-wrap"><span id="rotate-word" class="rotate-word">{{ rotating_words[0] }}</span></span>
+            <br>
+            <span data-i18n="hero.title.post">لە باشترین وڵاتانی جیهاندا</span>
+          </h1>
+
+          <p class="hero-lead" data-i18n="hero.lead">
+            کۆمپانیای پاتیمات دەروازەیەکە بۆ بەدەستهێنانی سکۆلارشیپی خوێندن (بەکالۆریۆس، ماجستێر، دکتۆرا) لە باشترین زانکۆکانی جیهان بەبێ مەرجی تەمەن و کۆنمرە. هەروەها پێشەنگین لە دابینکردنی ڤیزای پزیشکی و گەشتیاری بە خزمەتگوزاریی VIP و متمانەپێکراو.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#contact" class="btn btn-sun btn-lg">
+              {{ icon('phone', 'icon') }}
+              <span data-i18n="hero.cta1">ئێستا پەیوەندی بکە</span>
+              {{ icon('arrow-left', 'icon icon-sm') }}
+            </a>
+            <a href="#programs" class="btn btn-outline btn-lg" data-i18n="hero.cta2">بینینی خزمەتگوزارییەکان</a>
+          </div>
+
+          <dl class="hero-stats">
+            {% for stat in hero_stats %}
+              <div class="hero-stat">
+                <dt>{{ stat.value }}</dt>
+                <dd data-i18n="{{ stat.key }}">{{ stat.label }}</dd>
+              </div>
+            {% endfor %}
+          </dl>
+        </div>
+
+        <div class="hero-card-wrap">
+          <div class="hero-card">
+            <p class="hero-card-title" data-i18n="hero.card.title">دوا وادەی سکۆلارشیپی ڕووسیا</p>
+            <p class="hero-card-text" data-i18n="hero.card.text">
+              دوا وادە بۆ پێشکەشکردنی داواکاری بۆ سکۆلارشیپی ڕووسیا: 15/2/2025 - کاتێکی کەم ماوە، پەلە بکە لە ناوتۆمارکردن!
+            </p>
+            <div class="hero-card-badge">
+              <span class="pulse-dot"></span>
+              <span data-i18n="hero.card.badge">15/2/2025 - دوا مۆڵەت</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== SERVICES ============================== -->
+    <section id="programs" class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow" data-i18n="values.eyebrow">بەشی دووەم</span>
+          <h2 class="section-title" data-i18n="values.title">خزمەتگوزارییەکانمان (Our Services)</h2>
+          <p class="section-lead" data-i18n="values.lead">
+            بە دەستەبەری 100% گرەنتی، باشترین دەرفەتەکانی خوێندن و چارەسەری پزیشکی لە سەرتاسەری جیهان پێشکەش دەکەین.
+          </p>
+        </div>
+
+        <div class="grid grid-3">
+          {% for value in values %}
+            <div class="card value-card reveal" style="animation-delay: {{ loop.index0 * 120 }}ms">
+              <span class="icon-badge icon-badge-sun">{{ icon(value.icon, 'icon icon-lg') }}</span>
+              <h3 class="card-title" data-i18n="{{ value.key }}.title">{{ value.title }}</h3>
+              <p class="card-text">{{ value.text }}</p>
+              <ul class="tag-list">
+                {% for tag in value.tags %}
+                  <li class="tag">{{ tag }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== RUSSIA SCHOLARSHIP ============================== -->
+    <section id="russia" class="section section-tinted">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow" data-i18n="programs.eyebrow">بەشی سێیەم</span>
+          <h2 class="section-title" data-i18n="programs.title">سکۆلارشیپی ڕووسیا (Russian Scholarship 100%)</h2>
+          <p class="section-lead" data-i18n="programs.lead">
+            ئێمە لە کۆمپانیای پاتیمات دڵنیایی (١٠٠٪) دەدەین لە وەرگرتن و بانگهێشتنامە بۆ خوێندن لە ڕووسیا بەم تایبەتمەندییانە:
+          </p>
+        </div>
+
+        <div class="grid grid-3">
+          {% for program in programs %}
+            <div class="card program-card reveal" style="animation-delay: {{ loop.index0 * 120 }}ms">
+              <div class="program-blob"></div>
+              <span class="icon-badge icon-badge-accent">{{ icon(program.icon, 'icon icon-lg') }}</span>
+              <p class="program-age" data-i18n="{{ program.key }}.age">{{ program.age }}</p>
+              <h3 class="card-title" data-i18n="{{ program.key }}.title">{{ program.title }}</h3>
+              <p class="card-text">{{ program.text }}</p>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== STUDENT SERVICES ============================== -->
+    <section id="student-services" class="section">
+      <div class="container about-grid">
+        <div class="about-image-wrap reveal">
+          <div class="about-image">
+            <img src="{{ url_for('static', filename='images/germani.jpg') }}" alt="ئۆفیسی پاتیمات هەولێر">
+          </div>
+          <div class="about-badge">
+            <p class="about-badge-value">VIP</p>
+            <p class="about-badge-label" data-i18n="about.badge.label">خزمەتگوزاری یاوەریی تەواو</p>
+          </div>
+        </div>
+
+        <div class="reveal" style="animation-delay: 120ms">
+          <span class="eyebrow" data-i18n="about.eyebrow">بەشی چوارەم</span>
+          <h2 class="section-title" data-i18n="about.title">ئەو خزمەتگوزارییانەی پێشکەشی خوێندکاری دەکەین</h2>
+          <p class="section-lead section-lead-start" data-i18n="about.lead">
+            لە پاتیمات، تەنها بانگهێشتنامە وەرناگرین، بەڵکو هەنگاو بە هەنگاو لەگەڵتین لە فڕۆکەخانەوە تا دەستپێکردنی دەوامی فەرمی:
+          </p>
+
+          <div class="care-list">
+            {% for item in care %}
+              <div class="care-item">
+                <span class="icon-badge icon-badge-sun icon-badge-sm">{{ icon(item.icon, 'icon') }}</span>
+                <div>
+                  <h3 class="care-title" data-i18n="{{ item.key }}.title">{{ item.title }}</h3>
+                  <p class="care-text">{{ item.text }}</p>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== FORM ============================== -->
+    <section id="scholarship" class="section section-tinted">
+      <div class="container scholarship-grid">
+        <div class="reveal">
+          <span class="pill">
+            {{ icon('graduation-cap', 'icon icon-sm accent') }}
+            <span data-i18n="scholarship.pill">بەڵگەنامە داواکراوەکان</span>
+          </span>
+          <h2 class="section-title" data-i18n="scholarship.title">خۆت تۆمار بکه بۆ سکۆلارشیپ</h2>
+          <p class="section-lead section-lead-start" data-i18n="scholarship.lead">
+            بەڵگەنامە داواکراوەکان بۆ پێشکەشکردن:
+            1. سکانکردنی سەرجەم پەڕەکانی پاسپۆرت.
+            2. سکانکردنی بڕوانامەی دەرچوون (بەکالۆریۆس/ئامادەیی) بە وەرگێڕدراوی ئینگلیزی.
+            3. وێنەی کەسی (3 لە 4).
+          </p>
+
+          <ul class="perk-list">
+            {% for perk in scholarship_perks %}
+              <li class="perk-item">
+                {{ icon('check-circle', 'icon accent') }}
+                <span data-i18n="{{ perk.key }}">{{ perk.text }}</span>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        <div class="reveal" style="animation-delay: 120ms">
+          <div class="form-card">
+            <form id="scholarship-form" class="scholarship-form" novalidate>
+              <div class="form-row">
+                <label class="field" for="studentName">
+                  <span class="field-label" data-i18n="form.studentName">ناوی سیانی خوێندکار</span>
+                  <input id="studentName" name="studentName" required data-i18n-placeholder="form.studentName.placeholder" placeholder="ناو و پاشناو" class="form-input">
+                </label>
+                <label class="field" for="guardian">
+                  <span class="field-label" data-i18n="form.guardian">ناوی سەرپەرشتیار</span>
+                  <input id="guardian" name="guardian" required data-i18n-placeholder="form.guardian.placeholder" placeholder="ناوی باوک / دایک" class="form-input">
+                </label>
+              </div>
+
+              <div class="form-row">
+                <label class="field" for="phone">
+                  <span class="field-label" data-i18n="form.phone">ژمارەی تەلەفۆن (واتسئەپ/ڤایبەر)</span>
+                  <input id="phone" name="phone" type="tel" required dir="ltr" placeholder="0750 000 0000" class="form-input text-end">
+                </label>
+                <label class="field" for="email">
+                  <span class="field-label" data-i18n="form.email">ئیمەیڵ</span>
+                  <input id="email" name="email" type="email" dir="ltr" placeholder="you@email.com" class="form-input text-end">
+                </label>
+              </div>
+
+              <div class="form-row">
+                <label class="field" for="program">
+                  <span class="field-label" data-i18n="form.program">بەشی داواکراو</span>
+                  <span class="select-wrap">
+                    <select id="program" name="program" required class="form-input select">
+                      <option value="" disabled selected data-i18n="form.select">هەڵبژێرە...</option>
+                      {% for option in program_options %}
+                        <option value="{{ option }}">{{ option }}</option>
+                      {% endfor %}
+                    </select>
+                    {{ icon('chevron-down', 'icon icon-sm select-caret') }}
+                  </span>
+                </label>
+                <label class="field" for="grade">
+                  <span class="field-label" data-i18n="form.grade">ئاستی خوێندنی ئێستا</span>
+                  <span class="select-wrap">
+                    <select id="grade" name="grade" required class="form-input select">
+                      <option value="" disabled selected data-i18n="form.select">هەڵبژێرە...</option>
+                      {% for option in grade_options %}
+                        <option value="{{ option }}">{{ option }}</option>
+                      {% endfor %}
+                    </select>
+                    {{ icon('chevron-down', 'icon icon-sm select-caret') }}
+                  </span>
+                </label>
+              </div>
+
+              <label class="field" for="reason">
+                <span class="field-label" data-i18n="form.reason">کورتەیەک دەربارەی داواکارییەکەت</span>
+                <textarea id="reason" name="reason" rows="4" data-i18n-placeholder="form.reason.placeholder" placeholder="بنوسە کام وڵات یان خزمەتگوزاریت دەوێت..." class="form-input resize-none"></textarea>
+              </label>
+
+              <button type="submit" id="submit-btn" class="btn btn-sun btn-lg btn-block">
+                <span id="submit-icon">{{ icon('graduation-cap', 'icon') }}</span>
+                <span id="submit-label" data-i18n="form.submit">ناردنی داواکاری</span>
+              </button>
+            </form>
+
+            <div id="scholarship-success" class="scholarship-success" hidden>
+              <span class="icon-badge icon-badge-sun icon-badge-lg">{{ icon('check-circle', 'icon icon-xl accent') }}</span>
+              <h3 class="success-title" data-i18n="form.success.title">داواکارییەکەت وەرگیرا!</h3>
+              <p id="success-text" class="success-text"></p>
+              <button type="button" id="reset-form" class="btn btn-outline" data-i18n="form.success.reset">داواکارییەکی نوێ</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== NEW FILTERABLE GALLERY ============================== -->
+    <section id="gallery" class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow" data-i18n="gallery.eyebrow">گەلەریی وێنەکان</span>
+          <h2 class="section-title" data-i18n="gallery.title">سەرکەوتنەکانی پاتیمات لە جیهاندا</h2>
+        </div>
+
+        <!-- Filter Buttons -->
+        <div class="gallery-filters reveal">
+          <button type="button" class="filter-btn active" data-filter="all" data-i18n="filter.all">هەمووی</button>
+          <button type="button" class="filter-btn" data-filter="russia" data-i18n="filter.russia">ڕووسیا</button>
+          <button type="button" class="filter-btn" data-filter="germany" data-i18n="filter.germany">ئەڵمانیا</button>
+          <button type="button" class="filter-btn" data-filter="sweden" data-i18n="filter.sweden">سوید</button>
+          <button type="button" class="filter-btn" data-filter="uk_europe" data-i18n="filter.uk_europe">بەریتانیا و ئەوروپا</button>
+          <button type="button" class="filter-btn" data-filter="aviation" data-i18n="filter.aviation">فڕۆکەوانی</button>
+        </div>
+
+        <!-- Image Grid -->
+        <div class="media-grid" id="media-grid">
+          {% for item in gallery %}
+            <div class="media-grid-item reveal gallery-item" data-category="{{ item.category }}">
+              <img src="{{ url_for('static', filename='images/' + item.src) }}" alt="{{ item.alt }}" loading="lazy" class="gallery-img">
+              <div class="gallery-overlay">
+                {{ icon('images', 'icon icon-lg') }}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+
+    <!-- Lightbox Modal (Hidden by default) -->
+    <div id="lightbox" class="lightbox">
+      <div class="lightbox-content-wrapper">
+        <button type="button" id="lightbox-close" class="lightbox-close" aria-label="Close Lightbox">
+          {{ icon('x', 'icon icon-lg') }}
+        </button>
+        <img id="lightbox-img" src="" alt="Enlarged view" class="lightbox-img">
+      </div>
+    </div>
+  </main>
+
+  <!-- ============================== FOOTER & CONTACT ============================== -->
+  <footer id="contact" class="site-footer">
+    <div class="container footer-inner">
+      <div id="login" class="cta-card">
+        <div class="cta-blob"></div>
+        <div class="cta-content">
+          <h2 class="cta-title" data-i18n="footer.cta.title">داهاتووت لەگەڵ پاتیمات مسۆگەر بکە</h2>
+          <p class="cta-text" data-i18n="footer.cta.text">
+            پەیوەندیمان پێوە بکەن بۆ ڕاوێژکاریی بێبەرامبەر و وەرگرتنی زانیاریی زیاتر لە ڕێگەی تەلەفۆن، واتسئەپ، یان ڤایبەر.
+          </p>
+          <div class="cta-actions">
+            <a href="#scholarship" class="btn btn-sun btn-lg" data-i18n="footer.cta.btn1">تۆمارکردنی ناو</a>
+            <a href="tel:07508883214" class="btn btn-ghost-light btn-lg" data-i18n="footer.cta.btn2">0750 888 3214</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-grid">
+        <div>
+          <a href="#hero" class="logo">
+            <span class="logo-badge">{{ icon('sun', 'icon') }}</span>
+            <span class="logo-title" data-i18n="footer.brand">کۆمپانیای پاتیمات</span>
+          </a>
+          <p class="footer-text" data-i18n="footer.about">
+            کۆمپانیای پاتیمات — پێشەنگ لە بەدەستهێنانی سکۆلارشیپی خوێندن لە باشترین زانکۆکانی جیهان و دابینکردنی ڤیزای پزیشکی و گەشتیاری.
+          </p>
+          <div class="social-list">
+            {% for social in socials %}
+              <a href="{{ social.href }}" target="_blank" rel="noopener" aria-label="{{ social.label }}" class="social-btn">
+                {% if social.kind == 'image' %}
+                  <img src="{{ url_for('static', filename='images/' + social.icon) }}" alt="">
+                {% else %}
+                  {{ icon(social.icon, 'icon icon-sm') }}
+                {% endif %}
+              </a>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="contact-grid">
+          {% for contact in contacts %}
+            <div class="contact-item">
+              <span class="icon-badge icon-badge-sun icon-badge-sm">{{ icon(contact.icon, 'icon') }}</span>
+              <div class="contact-item-body">
+                <p class="contact-label" data-i18n="{{ contact.key }}.label">{{ contact.label }}</p>
+                <p class="contact-value" dir="ltr">{{ contact.value }}</p>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="map-block reveal">
+        <div class="map-block-head">
+          <span class="eyebrow" data-i18n="map.eyebrow">ناونیشانی سەرەکی (ئۆفیس)</span>
+          <h3 class="map-block-title" data-i18n="map.title">هەولێر، گەڕەکی مامۆستایان، شەقامی ١٥٠ مەتری، نزیک نافوورە، خانووی ژمارە ١٨</h3>
+        </div>
+        <div class="map-frame">
+          <iframe
+            title="Patimat Erbil Office Map"
+            src="https://www.google.com/maps?q=Erbil,+150m+Street&z=14&output=embed"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+          <div class="map-pin-card">
+            {{ icon('map-pin', 'icon icon-sm') }}
+            <span data-i18n="map.pin">ئۆفیسی هەولێر</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom" style="justify-content: center; flex-direction: column; text-align: center; padding-bottom: 4rem;">
+        <p data-i18n="footer.rights">© {{ year }} کۆمپانیای پاتیمات (patimat-company.com). سەرجەم مافەکان پارێزراون.</p>
+        <p>گەشەپێدەر: <a href="https://www.instagram.com/warar.ai/" target="_blank" rel="noopener" style="color: var(--sun); font-weight: bold; text-decoration: center;">Warar.ai</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================== AI CHATBOT ============================== -->
+  <div class="chat-widget">
+    <button type="button" id="chat-toggle" class="chat-fab" aria-label="Patimat AI Advisor">
+      {{ icon('bot', 'icon icon-lg') }}
+      <span class="chat-fab-dot"></span>
+    </button>
+
+    <div id="chat-panel" class="chat-panel" hidden>
+      <div class="chat-panel-head">
+        <span class="icon-badge icon-badge-sun icon-badge-sm">{{ icon('bot', 'icon') }}</span>
+        <div class="chat-panel-head-text">
+          <p class="chat-panel-title" data-i18n="chatbot.title">یاریدەدەری زیرەکی پاتیمات</p>
+          <p class="chat-panel-subtitle" data-i18n="chatbot.subtitle">سۆرانی · English · العربية</p>
+        </div>
+        <button type="button" id="chat-close" class="icon-btn" aria-label="close">{{ icon('x', 'icon icon-sm') }}</button>
+      </div>
+
+      <div id="chat-messages" class="chat-messages"></div>
+
+      <div class="chat-quick" id="chat-quick">
+        <button type="button" class="chat-quick-btn" data-i18n="chatbot.quick.fees">سکۆلارشیپی ڕووسیا</button>
+        <button type="button" class="chat-quick-btn" data-i18n="chatbot.quick.register">ڤیزای پزیشکی</button>
+        <button type="button" class="chat-quick-btn" data-i18n="chatbot.quick.location">ناونیشانی ئۆفیس</button>
+        <button type="button" class="chat-quick-btn" data-i18n="chatbot.quick.contact">پەیوەندی</button>
+      </div>
+
+      <form id="chat-form" class="chat-form">
+        <input id="chat-input" type="text" class="form-input chat-input" data-i18n-placeholder="chatbot.placeholder" placeholder="پرسیارەکەت بنووسە...">
+        <button type="submit" class="icon-btn chat-send" aria-label="send">{{ icon('send', 'icon icon-sm') }}</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    window.ROTATING_WORDS = {{ rotating_words | tojson }};
+  </script>
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
