@@ -110,7 +110,7 @@ HERO_STATS = [
     {"value": "VIP", "label": "خزمەتگوزاری متمانەپێکراو", "key": "hero.stat.standards"},
 ]
 
-ROTATING_WORDS = ["خوێندن", "چارەسەری پزیشکی", "ڤیزای شەنگن", "سکۆلارشیپ"]
+ROTATING_WORDS = ["خوێندن", "چارەسەری پزیشکی", "ڤیزای شەنگن",  "سکۆلارشیپ", "هەلی کار"]
 
 VALUES = [
     {
@@ -188,7 +188,7 @@ SCHOLARSHIP_PERKS = [
 ]
 
 PROGRAM_OPTIONS = ["پزیشکی گشتی / ددان / دەرمانسازی", "ئەندازیاری (نەوت، کۆمپیوتەر...)", "ماجستێر / دکتۆرا",
-                   "فڕۆکەوانی مەدەنی", "ڤیزای پزیشکی و چارەسەری"]
+                   "فڕۆکەوانی مەدەنی", "ڤیزای پزیشکی و چارەسەری" , "بەشەکانی تر "]
 GRADE_OPTIONS = [
     "دەرچووی پۆلی 12 (زانستی)",
     "دەرچووی پۆلی 12 (وێژەیی)",
@@ -201,16 +201,16 @@ CONTACTS = [
     {"icon": "phone", "label": "ژمارەی تەلەفۆنی سەرەکی", "value": "0750 888 3214", "key": "contact.phone1"},
     {"icon": "phone", "label": "ژمارەی تەلەفۆنی دووەم", "value": "0772 886 5151", "key": "contact.phone2"},
     {"icon": "mail", "label": "ئیمەیڵ / وێبسایت", "value": "patimat-company.com", "key": "contact.email"},
-    {"icon": "clock", "label": "کاتی کارکردن", "value": "شەممە – پێنجشەممە، 9:00 – 17:00", "key": "contact.hours"},
+    {"icon": "clock", "label": "کاتی کارکردن", "value": "شەممە – پێنجشەممە", "key": "contact.hours"},
     {"icon": "map-pin", "label": "ناونیشانی ئۆفیس",
      "value": "هەولێر، گەڕەکی مامۆستایان، شەقامی 150 مەتری، نزیک نافوورە، خانووی ژمارە 18", "key": "contact.address"},
 ]
 
 SOCIALS = [
-    {"kind": "image", "icon": "facebook.svg", "label": "فەیسبووک", "href": "https://facebook.com"},
+    {"kind": "image", "icon": "facebook.svg", "label": "فەیسبووک", "href": "https://www.facebook.com/share/1DBJdn47X8/"},
     {"kind": "image", "icon": "instagram.svg", "label": "ئینستاگرام", "href": "https://www.instagram.com/patimat.iq?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="},
     {"kind": "svg", "icon": "youtube", "label": "یوتیوب", "href": "https://youtube.com"},
-    {"kind": "svg", "icon": "tiktok", "label": "تیکتۆک", "href": "https://tiktok.com"},
+    {"kind": "svg", "icon": "tiktok", "label": "تیکتۆک", "href": "https://www.tiktok.com/@patimatcompany?is_from_webapp=1&sender_device=pc"},
     {"kind": "svg", "icon": "snapchat", "label": "سنابچات", "href": "https://snapchat.com"},
 ]
 
@@ -298,6 +298,49 @@ def index():
     )
 
 
+# --- زانیاریێن ئیمەیڵێ فرێکەر و وەرگر ---
+SENDER_EMAIL = "pesbadini81@gmail.com"  #  Gmail ta
+SENDER_PASSWORD = "zkenymlgzyqanbds"  # پاسوۆردێ ئەپڵیکەیشنێ (App Password)
+RECEIVER_EMAIL = "araz_h_mahdi@gmail.com"  # aw emaile nama bo dchit
+
+import traceback
+
+
+def send_email_notification(data):
+    try:
+        subject = f"داواکارییەکی نوێ: {data['student_name']}"
+        body = f"""
+        سڵاو، داواکارییەکی نوێ گەیشت:
+
+        👤 ناو: {data['student_name']}
+        👨‍👩‍👦 سەرپەرشتیار: {data['guardian']}
+        📞 تەلەفۆن: {data['phone']}
+        📧 ئیمەیڵ: {data['email']}
+        🎓 بەش: {data['program']}
+        📚 ئاست: {data['grade']}
+        📝 کورتە: {data['reason']}
+        """
+
+        msg = MIMEMultipart()
+        msg['From'] = SENDER_EMAIL
+        msg['To'] = RECEIVER_EMAIL
+        msg['Subject'] = subject
+        msg.attach(MIMEText(body, 'plain', 'utf-8'))
+
+        print("🔄 دەستکرا بە پەیوەندی بە سێرڤەری Gmail...")
+        server = smtplib.SMTP('smtp.gmail.com', 587, timeout=10)
+        server.starttls()
+        server.login(SENDER_EMAIL, SENDER_PASSWORD)
+        server.send_message(msg)
+        server.quit()
+        print("✅ ئیمەیڵ بە سەرکەوتوویی نێردرا!")
+        return True
+    except Exception as e:
+        print("❌ هەڵە ڕوویدا لە ناردنی ئیمەیڵ:")
+        print(e)
+        traceback.print_exc()
+        return False
+
 @app.route("/api/scholarship", methods=["POST"])
 def scholarship():
     data = request.get_json(silent=True) or request.form
@@ -324,17 +367,28 @@ def scholarship():
     if missing:
         return jsonify({"ok": False, "error": "missing_fields", "fields": missing}), 400
 
+    # پاشەکەوتکرن د فایلا CSV دا
     save_to_csv([student_name, guardian, phone, email, program, grade, reason])
+
+    # فرێکرنا ئیمەیڵێ ڕاستەوخۆ
+    send_email_notification({
+        "student_name": student_name,
+        "guardian": guardian,
+        "phone": phone,
+        "email": email,
+        "program": program,
+        "grade": grade,
+        "reason": reason
+    })
+
     return jsonify({"ok": True, "studentName": student_name})
-
-
 FAQ = [
     {
         "keywords": ["russia", "ڕووسیا", "روسیا", "رووسیا", "سکۆلارشیپ", "منحة"],
         "answer": {
-            "ku": "سکۆلارشیپی ڕووسیا 100% گرەنتییە بێ مەرجی تەمەن و کۆنمرە. خوێندنی خۆڕایی، مووچەی مانگانە (45-50$)، و کۆرسی زمانی ڕووسی بێبەرامبەر لەخۆدەگرێت. دوا وادە: 15/2/2025!",
-            "en": "Russian Scholarship offers 100% guaranteed admission with free tuition, monthly stipend ($45-50), and free language preparatory year. Deadline: 15/2/2025!",
-            "ar": "المنحة الروسية بضمان 100% بدون شروط العمر أو المعدل. تشمل دراسة مجانية، راتب شهري (45-50$)، وسنة تحضيرية مجانية. أخر موعد: 15/2/2025!",
+            "ku": "سکۆڵەرشیپی نێودەوڵەتی ١٠٠٪ گرەنتییە بەبێ مەرجی تەمەن و کۆنمرە. خوێندنی خۆڕایی، مووچەی مانگانە، نیشتەجێبوون و کۆرسی زمانی بێبەرامبەر لە باشترین زانکۆکانی جیهان لەخۆدەگرێت!",
+            "en": "100% guaranteed global scholarships with no age or GPA requirements. Fully funded education, monthly stipend, free accommodation, and preparatory language course in top global universities!",
+            "ar": "منح دراسية دولية مضمونة بنسبة 100% بدون شروط العمر والمعدل. تشمل الدراسة المجانية، الراتب الشهري، السكن، ودورة اللغة المجانية في أفضل جامعات العالم!",
         },
     },
     {
