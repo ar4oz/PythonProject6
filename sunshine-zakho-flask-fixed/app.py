@@ -301,7 +301,7 @@ def index():
 # --- زانیاریێن ئیمەیڵێ فرێکەر و وەرگر ---
 SENDER_EMAIL = "pesbadini81@gmail.com"  #  Gmail ta
 SENDER_PASSWORD = "zkenymlgzyqanbds"  # پاسوۆردێ ئەپڵیکەیشنێ (App Password)
-RECEIVER_EMAIL = "araz_h_mahdi@gmail.com"  # aw emaile nama bo dchit
+RECEIVER_EMAIL = "compatimat@gmail.com"  # aw emaile nama bo dchit
 
 import traceback
 
