@@ -84,6 +84,7 @@ NAV = [
     },
     {"label": "سکۆلارشیپی ڕووسیا", "href": "#russia", "key": "nav.russia"},
     {"label": "خزمەتگوزارییەکان بۆ خوێندکار", "href": "#student-services", "key": "nav.student_services"},
+    {"label": "دەربارەی ئێمە", "href": "#team-section", "key": "nav.about_us"},
     {"label": "وێنەکان", "href": "#gallery", "key": "nav.gallery"},
     {"label": "پەیوەندی", "href": "#contact", "key": "nav.contact"},
 ]
@@ -275,6 +276,66 @@ GALLERY = [
     {"src": "froka7jpg.jpg", "category": "aviation", "alt": "Aviation Study"},
 ]
 
+# ==============================================================================
+# TEAM SECTION
+# ==============================================================================
+TEAM = [
+    {
+        "image": "team.jpeg",
+        "name_ku": "زەینەب هەمزە محەممەد",
+        "name_ar": "زينب همزة محمد",
+        "name_en": "Zainab Hamza Mohammed",
+        "role_ku": "خاوەنی کۆمپانیای پاتیمات - قوتابی پزیشکی ددان لە زانکۆی RUDN",
+        "role_ar": "صاحبة شركة باتيمات - طالبة طب أسنان في جامعة RUDN",
+        "role_en": "Owner of company - CEO. Dental student at RUDN University"
+    },
+    {
+        "image": "team1.jpeg",
+        "name_ku": "حەلیمە عولا هەمزە",
+        "name_ar": "حليمه عولا همزة",
+        "name_en": "Halima Oula Hamza",
+        "role_ku": "بەڕێوەبەری گشتی کۆمپانیا",
+        "role_ar": "المديرة العامة للشركة",
+        "role_en": "Head of General Administration at the company"
+    },
+    {
+        "image": "team2.jpeg",
+        "name_ku": "بەختیار هەمزە محەممەد",
+        "name_ar": "بختيار همزة محمد",
+        "name_en": "Bakhtiar Hamza Mohammed",
+        "role_ku": "بەڕێوەبەری پەیوەندییەکانی دەرەوە - نیشتەجێی ئەڵمانیا 🇩🇪",
+        "role_ar": "مدير العلاقات الخارجية - مقيم في ألمانيا 🇩🇪",
+        "role_en": "General Director of External Relations - Based in Germany 🇩🇪"
+    },
+    {
+        "image": "team3.jpeg",
+        "name_ku": "شەیما هەمزە محەممەد",
+        "name_ar": "شيماء همزة محمد",
+        "name_en": "Shaimaa Hamza Mohammed",
+        "role_ku": "بەڕێوەبەری کارگێڕی دارایی",
+        "role_ar": "مديرة الإدارة المالية",
+        "role_en": "Financial Administration Manager"
+    },
+    {
+        "image": "team4.jpeg",
+        "name_ku": "خوناو ئەنوەر حوسێن",
+        "name_ar": "خوناو أنور حسين",
+        "name_en": "Khanaw Anwar Hussein",
+        "role_ku": "بەڕێوەبەری هەماهەنگی و ئاماری کاروباری قوتابیان",
+        "role_ar": "مديرة تنسيق واحصاء شؤون الطلاب",
+        "role_en": "Director of Student Affairs Coordination and Statistics"
+    },
+    {
+        "image": "team5.jpeg",
+        "name_ku": "چاوکڕوان حاجی خالید",
+        "name_ar": "چاوكروان حاجي خاليد",
+        "name_en": "Chawrawan Haji Khalid",
+        "role_ku": "بەرپرسی ڤیزای شنگن و گەشتوگوزار",
+        "role_ar": "مسؤولة فيزا شنغن والسياحة",
+        "role_en": "Schengen Visa and Travel Officer"
+    }
+]
+
 
 @app.route("/")
 def index():
@@ -294,6 +355,7 @@ def index():
         contacts=CONTACTS,
         socials=SOCIALS,
         gallery=GALLERY,
+        team=TEAM,
         year=2026,
     )
 
@@ -301,7 +363,7 @@ def index():
 # --- زانیاریێن ئیمەیڵێ فرێکەر و وەرگر ---
 SENDER_EMAIL = "pesbadini81@gmail.com"  #  Gmail ta
 SENDER_PASSWORD = "zkenymlgzyqanbds"  # پاسوۆردێ ئەپڵیکەیشنێ (App Password)
-RECEIVER_EMAIL = "compatimat@gmail.com"  # aw emaile nama bo dchit
+RECEIVER_EMAIL = "araz_h_mahdi@gmail.com"  # aw emaile nama bo dchit
 
 import traceback
 
